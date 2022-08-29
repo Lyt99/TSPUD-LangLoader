@@ -12,13 +12,13 @@ namespace Entrypoint
 {
     class SourceTeamOverlay : MonoBehaviour
     {
-        public Text textTL;
-        //public Text textTC;
-        public Text textTR;
-        public Text textBL;
-        //public Text textBC;
-        public Text textBR;
-        private bool isSteamInited = false;
+        //public Text textTL;
+        ////public Text textTC;
+        //public Text textTR;
+        //public Text textBL;
+        ////public Text textBC;
+        //public Text textBR;
+        //private bool isSteamInited = false;
         float zoom_step = 5f;
         float zoom_stop = 0f;
         bool zoom_down = false;
@@ -26,32 +26,11 @@ namespace Entrypoint
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoInlining)]
         void Awake()
         {
-            var canvas = gameObject.AddComponent<Canvas>();
-            var canvasScaler = gameObject.AddComponent<CanvasScaler>();
-            //var graphicRaycaster = gameObject.AddComponent<GraphicRaycaster>();
-
-            // Canvas
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-
-            textTL = CreateText(new Vector2(0, 1), new Vector2(0, 1), new Vector2(0, 1), TextAnchor.UpperLeft);
-            //textTC = CreateText(new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), TextAnchor.UpperCenter);
-            textTR = CreateText(new Vector2(1, 1), new Vector2(1, 1), new Vector2(1, 1), TextAnchor.UpperRight);
-
-            textBL = CreateText(new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), TextAnchor.LowerLeft);
-            //textBC = CreateText(new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 0), TextAnchor.LowerCenter);
-            textBR = CreateText(new Vector2(1, 0), new Vector2(1, 0), new Vector2(1, 0), TextAnchor.LowerRight);
-
-            Logger.Debug("Awake");
         }
+
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoInlining)]
         void Update()
         {
-            if (SteamManager.Initialized && !isSteamInited)
-            {
-                isSteamInited = true;
-                textBL.text = SteamUser.GetSteamID().ToString();
-                Logger.Debug("Update");
-            }
             if (StanleyController.Instance == null)
                 return;
 
@@ -83,15 +62,6 @@ namespace Entrypoint
             //    StanleyController.Instance.FieldOfView = zoom_stop;
             //    zoom_stop = 0;
             //}
-
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                StanleyController.Instance.SetMovementSpeedMultiplier(3.0f);
-            }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                StanleyController.Instance.SetMovementSpeedMultiplier(1.0f);
-            }
         }
 
         Text CreateText(Vector2 pivot, Vector2 anchorMin, Vector2 anchorMax, TextAnchor textAnchor)

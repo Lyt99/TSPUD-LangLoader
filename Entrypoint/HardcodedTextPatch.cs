@@ -38,12 +38,12 @@ namespace Entrypoint
                     switch (t.name)
                     {
                         case "Header_Text_Lower":
-                            t.text = t.text.Replace("THE STANLEY PARABLE", "<line-height=110%>史丹利的寓言").
+                            t.text = t.text.Replace("THE STANLEY PARABLE", "<voffset=0.1em>史丹利的寓言<voffset=0>").
                                 Replace("ULTRA DELUXE", "究极豪华版");
                             break;
                         case "TSP_1_Header":
                         case "Header_Text_Title":
-                            t.text = t.text.Replace("THE STANLEY PARABLE", "<voffset=0.15em>史丹利的寓言<voffset=0>");
+                            t.text = t.text.Replace("THE STANLEY PARABLE", "<line-height=110%>史丹利的寓言");
                             Logger.Debug($"Patched text: ${t.text}");
                             break;
                         case "Header_Text":

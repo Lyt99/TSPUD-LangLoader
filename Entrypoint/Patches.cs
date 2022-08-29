@@ -44,8 +44,8 @@ namespace Entrypoint
             }
 
             SceneManager.sceneLoaded += OnSceneLoaded;
-            //Logger.Debug("Set overlay");
-            //InitOverlay(__instance.gameObject);
+            Logger.Debug("Set overlay");
+            InitOverlay(__instance.gameObject);
             HardcodedTextPatch.DoPatch(__instance.gameObject);
 
         }
@@ -118,6 +118,12 @@ namespace Entrypoint
                         Logger.Debug($"Patching {mr.name}");
                         mr.name = $"Patched {mr.name}";
                         mr.mesh = mesh;
+
+                        // Cylinder#6b7d2b3953084f8bb0b19cd6b9a727fe
+                        if (objName == "Cylinder" && meshName == "6b7d2b3953084f8bb0b19cd6b9a727fe")
+                        {
+                            mr.transform.Translate(new Vector3(0.0f, 0.0f, -0.08f));
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -197,19 +203,6 @@ namespace Entrypoint
             Logger.Debug($"final result {__result}");
 
             return false;
-        }
-    }
-
-    [HarmonyPatch]
-    static class BuildNumberPatch
-    {
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(SetBuildNumberText), "UpdateText")]
-        public static void UpdateTextPostfix(ref TMP_Text ___text)
-        {
-            ___text.text = $"<size=200%>起源汉化组</size>\n" +
-                $"内部测试版: 1.0.0\n" +
-                $"游戏版本: " + (Application.version ?? "未知");
         }
     }
 }
